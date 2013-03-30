@@ -32,6 +32,8 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.jboss.com/maven2/"
     }
     dependencies {
+		runtime 'org.codehaus.groovy.modules.http-builder:http-builder:0.5.1'
+			
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 
         // runtime 'mysql:mysql-connector-java:5.1.20'
@@ -50,8 +52,8 @@ grails.project.dependency.resolution = {
         build ":tomcat:$grailsVersion"
 
         runtime ":database-migration:1.1"
-
         compile ':cache:1.0.0'
 		compile ":springws:0.5.0"
+		compile ":functional-test:2.0.RC1"
     }
 }

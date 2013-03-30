@@ -8,11 +8,10 @@
         <xs:element name="Personnel">
           <xs:complexType>
             <xs:sequence>
-              <xs:element type="xs:byte" name="Number"/>
-              <xs:element type="xs:string" name="FirstName"/>
-              <xs:element type="xs:string" name="LastName"/>
+              <xs:element type="xs:string" name="Prenom"/>
+              <xs:element type="xs:string" name="Nom"/>
               <xs:element type="xs:string" name="Mail"/>
-              <xs:element type="xs:string" name="Adress"/>
+              <xs:element type="xs:string" name="Adresse"/>
             </xs:sequence>
           </xs:complexType>
         </xs:element>

@@ -62,11 +62,16 @@ grails.hibernate.cache.queries = false
 environments {
     development {
         grails.logging.jul.usebridge = true
+		grails.serverURL = "http://localhost:8080/covoiturageups"
     }
     production {
         grails.logging.jul.usebridge = false
         // TODO: grails.serverURL = "http://www.changeme.com"
     }
+	test {
+		grails.logging.jul.usebridge = true
+		grails.serverURL = "http://localhost:8080/covoiturageups"
+	}
 }
 
 // log4j configuration
@@ -88,4 +93,18 @@ log4j = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
+}
+springws.wsdl.Subscribtion.export
+springws {
+	wsdl {
+		Subscription {
+			// In this case the wsdl will be available at <grails.serverURL>/services/hr/v2/Subscribtion/Subscribtion.wsdl
+			wsdlName= 'Subscribtion-v1'
+			xsds= '/WEB-INF/SubRequest.xsd'
+			portTypeName = 'SubscribtionPort'
+			serviceName = 'SubscribtionService'
+			locationUri = grails.serverURL + '/services/v1/Subscribtion'
+			targetNamespace = 'http://www.covoiturageups.com/v1/definitions'
+		}
+	}
 }
