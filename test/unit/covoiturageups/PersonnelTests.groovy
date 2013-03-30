@@ -13,7 +13,7 @@ import org.junit.*
 class PersonnelTests {
 
 	void testConstraints() {
-		def p1 = new Personnel( prenom: "Remi", nom: "Benoit", email: "me@test.com", adresse: "4 rue des hommes")
+		def p1 = new Personnel( prenom: "Remi", nom: "Benoit", email: "me@univ-tlse3.fr", adresse: "4 rue des hommes")
 		
 		mockForConstraintsTests(Personnel, [p1])
 		
@@ -35,10 +35,15 @@ class PersonnelTests {
 		assertEquals "blank", p3.errors["email"]
 		assertEquals "blank", p3.errors["adresse"]
 		
-		def p4 = new Personnel (prenom: "test1", nom: "boua" , email: "remmm", adresse: "rien2")
+		def p4 = new Personnel (prenom: "test1", nom: "boua" , email: "remmm", adresse: "me")
 		
 		assertFalse p4.validate()
 		assertEquals "email", p4.errors["email"]
+		
+		def p5 = new Personnel (prenom: "test1", nom: "boua" , email: "me@truc.com", adresse: "rien")
+		
+		assertFalse p5.validate()
+		assertEquals "matches", p5.errors["email"]
 		
 	}
 }

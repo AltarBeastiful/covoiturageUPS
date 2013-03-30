@@ -13,7 +13,7 @@ class Personnel {
     static constraints = {
 		prenom blank: false
 		nom blank: false
-		email email: true, blank: false
+		email email: true, blank: false, matches: /.*\@univ-tlse3.fr$/
 		adresse blank:false
     }
 }
