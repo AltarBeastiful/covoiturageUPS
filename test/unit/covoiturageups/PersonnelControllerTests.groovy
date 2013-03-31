@@ -19,7 +19,6 @@ class PersonnelControllerTests {
 		params["adresse"] = '3 rue des trucs'
 		params["latitude"] = 1.42
 		params["longitude"] = 1.43
-		
     }
 
     void testIndex() {

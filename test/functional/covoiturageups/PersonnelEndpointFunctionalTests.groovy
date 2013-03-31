@@ -6,8 +6,8 @@ import org.codehaus.groovy.grails.plugins.spring.ws.EndpointFunctionalTestCase
 
 class PersonnelEndpointFunctionalTests extends EndpointFunctionalTestCase {
 
-	def serviceURL = "http://localhost:8080/covoiturageUPS/services/v1/Subscribtion"
-
+//	def serviceURL = "http://localhost:8080/covoiturageUPS/services/v1/Subscribtion"
+	def serviceURL = "http://localhost:8080/covoiturageUPS/services"
 	def namespace = "http://www.covoiturageups.com/v1/definitions"
 
 	void setUp(){
