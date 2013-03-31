@@ -15,6 +15,8 @@ class PersonnelService {
 	}
 	
     def savePersonnel(Personnel p) {
+		println "Saving : " + p
+		
 		Map<String,String> doc = new HashMap<String, String>();
 		doc.put("nom", p.getNom());
 		doc.put("prenom", p.getPrenom());

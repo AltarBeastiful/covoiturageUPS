@@ -1,8 +1,11 @@
 package covoiturageups
 
+import covoiturageups.PersonnelService
+
 import org.springframework.dao.DataIntegrityViolationException
 
 class PersonnelController {
+	def service = PersonnelService.getInstance()
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -25,9 +28,12 @@ class PersonnelController {
             render(view: "create", model: [personnelInstance: personnelInstance])
             return
         }
-
-        flash.message = message(code: 'default.created.message', args: [message(code: 'personnel.label', default: 'Personnel'), personnelInstance.id])
-        redirect(action: "show", id: personnelInstance.id)
+		
+		service.savePersonnel(personnelInstance)
+		
+//
+//        flash.message = message(code: 'default.created.message', args: [message(code: 'personnel.label', default: 'Personnel'), personnelInstance.id])
+//        redirect(action: "show", id: personnelInstance.id)
     }
 
     def show(Long id) {
