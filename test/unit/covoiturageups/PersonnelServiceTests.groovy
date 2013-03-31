@@ -12,6 +12,6 @@ import org.junit.*
 class PersonnelServiceTests {
 
     void testSomething() {
-        assertTrue true
+        fail "Implement me"
     }
 }

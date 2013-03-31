@@ -33,7 +33,6 @@ grails.project.dependency.resolution = {
     }
     dependencies {
 		runtime 'org.codehaus.groovy.modules.http-builder:http-builder:0.5.1'
-		runtime 'com.google.code.jcouchdb:jcouchdb:0.10.0-1'
 			
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 
