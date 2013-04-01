@@ -1,8 +1,10 @@
 package covoiturageups
 
-//@Grab(group='com.google.code.svenson', module='svenson', version='1.4.0')
-import groovy.lang.Grab;
+
 import org.jcouchdb.db.Database
+import org.jcouchdb.document.BaseDocument
+import org.jcouchdb.document.ValueRow
+import org.jcouchdb.exception.UpdateConflictException
 
 @Grab(group='com.google.code.jcouchdb', module='jcouchdb', version='1.0.1-1')
 class PersonnelService {
@@ -14,18 +16,70 @@ class PersonnelService {
 		db = new Database("localhost", "covoiturageups");
 	}
 	
-    def savePersonnel(Personnel p) {
-		println "Saving : " + p
-		
-		Map<String,String> doc = new HashMap<String, String>();
-		doc.put("nom", p.getNom());
-		doc.put("prenom", p.getPrenom());
-		doc.put("email", p.getEmail());
-		doc.put("adresse", p.getAdresse());
-		doc.put("latitude", p.getLatitude());
-		doc.put("longitude", p.getLongitude());
+	def setDatabaseName(String s){
+		db = new Database("localhost", s)
+	}
 	
+	def flushDatabase(){
+		for(Personnel p : getAllPersonnel()){
+			deletePersonnel(p)
+		}
+	}
+	
+    boolean savePersonnel(Personnel p) {	
 		// create the document in couchdb
-		db.createDocument(doc);
+		try {
+			db.createDocument(generateBaseDocument(p));
+		}catch(UpdateConflictException e){
+			return false
+		}
+		
+		return true
     }
+	
+	//TODO fix, missing revision in basedoc
+	def deletePersonnel(Personnel p){
+		db.delete(generateBaseDocument(p))
+	}
+	
+	//TODO notfound error?
+	def getPersonnel(String email){
+		BaseDocument doc = db.getDocument(BaseDocument.class, email)
+		
+		return generatePersonnel(doc)
+	}
+	
+	List<Personnel> getAllPersonnel(){
+		List<Personnel> result = new ArrayList<Personnel>()
+				
+		for (ValueRow<Object> row : db.listDocuments(null, null).getRows()) {
+			result.add(this.getPersonnel(row.getId()))
+		}
+		
+		return result
+	}
+	
+	def generatePersonnel(BaseDocument doc){
+		return new Personnel(	nom:doc.getProperty("nom"),
+								prenom:doc.getProperty("prenom"),
+								email:doc.getProperty("email"),
+								adresse:doc.getProperty("adresse"),
+								longitude:doc.getProperty("longitude"),
+								latitude:doc.getProperty("latitude") )
+	}
+	
+	def generateBaseDocument(Personnel p){
+		BaseDocument doc = new BaseDocument();
+		doc.setId(p.getEmail());
+		
+		doc.setProperty("nom", p.getNom());
+		doc.setProperty("prenom", p.getPrenom());
+		doc.setProperty("email", p.getEmail());
+		doc.setProperty("adresse", p.getAdresse());
+		doc.setProperty("latitude", p.getLatitude());
+		doc.setProperty("longitude", p.getLongitude());
+		
+		return doc
+	}
 }
+
