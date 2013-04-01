@@ -1,4 +1,5 @@
 package covoiturageups
+
 import org.codehaus.groovy.grails.plugins.spring.ws.EndpointFunctionalTestCase
 
 class PersonnelEndpointFunctionalTests extends EndpointFunctionalTestCase {

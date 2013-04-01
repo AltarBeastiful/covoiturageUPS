@@ -95,6 +95,7 @@ log4j = {
            'net.sf.ehcache.hibernate'
 }
 springws.wsdl.Subscribtion.export
+springws.wsdl.FindNeighbours.export
 springws {
 	wsdl {
 		Subscription {
@@ -104,6 +105,16 @@ springws {
 			portTypeName = 'SubscribtionPort'
 			serviceName = 'SubscribtionService'
 			locationUri = grails.serverURL + '/services/v1/Subscribtion'
+			targetNamespace = 'http://www.covoiturageups.com/v1/definitions'
+		}
+		
+		FindNeighbours {
+			// In this case the wsdl will be available at <grails.serverURL>/services/hr/v2/Subscribtion/Subscribtion.wsdl
+			wsdlName= 'FindNeighbours-v1'
+			xsds= '/WEB-INF/FindNeighboursRequest.xsd'
+			portTypeName = 'FindNeighboursPort'
+			serviceName = 'FindNeighboursService'
+			locationUri = grails.serverURL + '/services/v1/FindNeighbours'
 			targetNamespace = 'http://www.covoiturageups.com/v1/definitions'
 		}
 	}
