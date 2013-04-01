@@ -1,7 +1,9 @@
 package covoiturageups
 
+
+
 import grails.test.mixin.*
-import covoiturageups.Personnel
+
 import org.junit.*
 
 /**
@@ -11,9 +13,8 @@ import org.junit.*
 class PersonnelTests {
 
 	void testConstraints() {
-		// TODO : fix this instance
-		def p1 = new Personnel( prenom: "Remi", nom: "Benoit", email: "me@univ-tlse3.fr", adresse: "4 rue des hommes")
-
+		def p1 = new Personnel( prenom: "Remi", nom: "Benoit", email: "me@univ-tlse3.fr", adresse: "4 rue des hommes", latitude: 0, longitude: 0)
+		
 		mockForConstraintsTests(Personnel, [p1])
 		
 		assert p1.validate()

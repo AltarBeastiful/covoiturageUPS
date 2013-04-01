@@ -19,13 +19,10 @@ class PersonnelControllerTests {
 		params["adresse"] = '3 rue des trucs'
 		params["latitude"] = 1.42
 		params["longitude"] = 1.43
-<<<<<<< HEAD
-=======
 		
 		PersonnelService.getInstance().setDatabaseName("covoiturageupstest")
 		//PersonnelService.getInstance().flushDatabase()
 		
->>>>>>> e36d950864d97da449d6ea2053237932660b9406
     }
 
     void testIndex() {
