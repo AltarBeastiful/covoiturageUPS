@@ -26,9 +26,11 @@ class PersonnelController {
 
     def save() {
         def personnelInstance = new Personnel(params)
-        if (!personnelInstance.save(flush: true)) {
-            //render(view: "create", model: [personnelInstance: personnelInstance])
-            return false
+		Personnel.withTransaction {
+	        if (!personnelInstance.save(flush: true)) {
+	            //render(view: "create", model: [personnelInstance: personnelInstance])
+	            return false
+	        }
         }
 		
 		return service.savePersonnel(personnelInstance)
