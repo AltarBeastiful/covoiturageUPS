@@ -62,7 +62,8 @@ class PersonnelService {
 								email:doc.getProperty("email"),
 								adresse:doc.getProperty("adresse"),
 								longitude:doc.getProperty("longitude"),
-								latitude:doc.getProperty("latitude") )
+								latitude:doc.getProperty("latitude"),
+								revision:doc.getRevision())
 	}
 	
 	def generateBaseDocument(Personnel p){
@@ -75,6 +76,10 @@ class PersonnelService {
 		doc.setProperty("adresse", p.getAdresse());
 		doc.setProperty("latitude", p.getLatitude());
 		doc.setProperty("longitude", p.getLongitude());
+		
+		if(p.getRevision() != null){
+			doc.setRevision(p.getRevision())
+		}
 		
 		return doc
 	}
