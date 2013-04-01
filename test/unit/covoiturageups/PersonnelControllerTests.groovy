@@ -21,7 +21,7 @@ class PersonnelControllerTests {
 		params["longitude"] = 1.43
 		
 		PersonnelService.getInstance().setDatabaseName("covoiturageupstest")
-		//PersonnelService.getInstance().flushDatabase()
+		PersonnelService.getInstance().flushDatabase()
 		
     }
 

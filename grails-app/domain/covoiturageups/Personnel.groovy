@@ -8,6 +8,8 @@ class Personnel {
 	Double latitude
 	Double longitude
 	
+	String revision
+	
 	String toString() {
 		return prenom + " " + nom + " " + email + " " + adresse 
 	}
@@ -19,5 +21,6 @@ class Personnel {
 		adresse blank:false
 		latitude blank: false
 		longitude blank: false
+		revision nullable: true
     }
 }

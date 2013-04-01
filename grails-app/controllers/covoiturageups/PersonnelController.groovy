@@ -28,10 +28,11 @@ class PersonnelController {
         def personnelInstance = new Personnel(params)
         if (!personnelInstance.save(flush: true)) {
             render(view: "create", model: [personnelInstance: personnelInstance])
-            return
+            return false
         }
 		
-		service.savePersonnel(personnelInstance)
+		return service.savePersonnel(personnelInstance)
+		
     }
 
 //    def show(Long id) {
