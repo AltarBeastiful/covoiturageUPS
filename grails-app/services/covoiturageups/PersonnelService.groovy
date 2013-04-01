@@ -26,14 +26,11 @@ class PersonnelService {
 		}
 	}
 	
-    boolean savePersonnel(Personnel p) {	
+    boolean savePersonnel(Personnel p) throws UpdateConflictException {	
 		// create the document in couchdb
-		try {
-			db.createDocument(generateBaseDocument(p));
-		}catch(UpdateConflictException e){
-			return false
-		}
-		
+
+		db.createDocument(generateBaseDocument(p));
+
 		return true
     }
 	
