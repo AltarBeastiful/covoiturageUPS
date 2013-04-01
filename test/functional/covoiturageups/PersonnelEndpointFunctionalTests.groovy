@@ -16,50 +16,14 @@ class PersonnelEndpointFunctionalTests extends EndpointFunctionalTestCase {
 		def response = withEndpointRequest(serviceURL) {
 			SubscriptionRequest(xmlns: namespace) {
 				Subscription{
-					Prenom("Toto")
-					Nom("Auzoo")
+					Prenom("TotoPasBien")
+					Nom("Auzoo2")
 					Mail("totoauzoo@univ-tlse3.fr")
-					Adresse("11 rue l'Homme armee, Toulouse")
+					Adresse("11 rue bernard mule, Toulouse")
 				}
 			}
 		}
 		
-		/*
-		// KO : test failed 
-			// code 100 : mail already used
-		def response = withEndpointRequest(serviceURL) {
-			SubscriptionRequest(xmlns: namespace) {
-				Subscription{
-					Prenom("Toto")
-					Nom("Auzoo")
-					Mail("totoauzoo@univ-tlse3.fr")
-					Adresse("11 rue l'Homme armee, Toulouse")
-				}
-			}
-		}
-			// code 110 : Invalid Mail
-		def response = withEndpointRequest(serviceURL) {
-			SubscriptionRequest(xmlns: namespace) {
-				Subscription{
-					Prenom("Toto")
-					Nom("Auzoo")
-					Mail("fail-univ-tlse3.fr")
-					Adresse("11 rue l'Homme armee, Toulouse")
-				}
-			}
-		}
-			// code 200 : Adresse unknown by OSM
-		def response = withEndpointRequest(serviceURL) {
-			SubscriptionRequest(xmlns: namespace) {
-				Subscription{
-					Prenom("Toto")
-					Nom("Auzoo")
-					Mail("totoauzoo@univ-tlse3.fr")
-					Adresse("11 rue bernard mule")
-				}
-			}
-		}
-		*/
 		
 		def status = response.status
 		assert status == "complete"
