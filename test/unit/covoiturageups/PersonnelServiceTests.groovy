@@ -11,7 +11,20 @@ import org.junit.*
 @TestFor(PersonnelService)
 class PersonnelServiceTests {
 
+<<<<<<< HEAD
     void testSomething() {
         fail "Implement me"
+=======
+    void testAddPersonnel() {
+        assertTrue true
+>>>>>>> e36d950864d97da449d6ea2053237932660b9406
     }
+	
+	void testGetPersonnel() {
+		assertTrue true
+	}
+	
+	void testGetAllPersonnel() {
+		assertTrue true
+	}
 }
