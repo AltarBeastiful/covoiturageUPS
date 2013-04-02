@@ -32,6 +32,9 @@ class PersonnelController {
 			return service.savePersonnel(personnelInstance)
 		
         }
-
     }
+	
+	def get(String email){
+		return service.getPersonnel(email)
+	}
 }

@@ -5,6 +5,7 @@ import org.jcouchdb.db.Database
 import org.jcouchdb.document.BaseDocument
 import org.jcouchdb.document.ValueRow
 import org.jcouchdb.exception.UpdateConflictException
+import org.jcouchdb.exception.NotFoundException
 import org.springframework.transaction.annotation.Transactional
 
 @Grab(group='com.google.code.jcouchdb', module='jcouchdb', version='1.0.1-1')
@@ -47,7 +48,7 @@ class PersonnelService {
 	}
 
 	//TODO notfound error?
-	def getPersonnel(String email){
+	def getPersonnel(String email) throws NotFoundException{
 		BaseDocument doc = db.getDocument(BaseDocument.class, email)
 
 		return generatePersonnel(doc)
