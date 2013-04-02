@@ -17,10 +17,10 @@ class OpenStreetMapCaller {
 				
 				// parse the XML response object:
 				if(xml.place.size() == 0){
-					println "No place found"
+					//println "No place found"
 				}else{	
 					if(xml.place.size() > 1){
-						println "More than one place found, taking the first one"
+						//println "More than one place found, taking the first one"
 					}
 					
 					def node = xml.place[0] 
