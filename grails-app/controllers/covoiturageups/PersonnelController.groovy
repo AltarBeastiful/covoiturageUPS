@@ -5,7 +5,7 @@ import covoiturageups.PersonnelService
 import org.springframework.dao.DataIntegrityViolationException
 
 class PersonnelController {
-	//def service = PersonnelService.getInstance()
+	def service = PersonnelService.getInstance()
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
