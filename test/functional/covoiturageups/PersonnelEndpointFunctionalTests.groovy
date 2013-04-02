@@ -1,6 +1,8 @@
 package covoiturageups
 
 import org.codehaus.groovy.grails.plugins.spring.ws.EndpointFunctionalTestCase
+import org.junit.Before;
+import org.junit.Test;
 
 class PersonnelEndpointFunctionalTests extends EndpointFunctionalTestCase {
 
@@ -13,13 +15,22 @@ class PersonnelEndpointFunctionalTests extends EndpointFunctionalTestCase {
 		
 	}
 	
-	void testSetup() {
+	// Execute test in the order we want
+	void testPersonnelEndpoint(){
+		setupDB()
+		subscriptionError200()
+		subscriptionError110()
+		subscriptionOK()
+		subscriptionError100()
+	}
+	
+	void setupDB() {
 		PersonnelService.getInstance().setDatabaseName("covoiturageupstest")
 		PersonnelService.getInstance().flushDatabase()
 	}
 	
 	// code erreur 200 : Adresse postale non connue de Open Street Map
-	void testSubscriptionError200() {
+	void subscriptionError200() {
 		def response = withEndpointRequest(serviceURL) {
 			SubscriptionRequest(xmlns: namespace) {
 				Subscription{
@@ -37,7 +48,7 @@ class PersonnelEndpointFunctionalTests extends EndpointFunctionalTestCase {
 	}
 	
 	// code erreur 110 : Adresse email invalide
-	void testSubscriptionError110() {
+	void subscriptionError110() {
 		def response = withEndpointRequest(serviceURL) {
 			SubscriptionRequest(xmlns: namespace) {
 				Subscription{
@@ -54,7 +65,7 @@ class PersonnelEndpointFunctionalTests extends EndpointFunctionalTestCase {
 		assert status == "110"
 	}
 
-	void testSubscriptionOK() {
+	void subscriptionOK() {
 		// OK Test
 		def response = withEndpointRequest(serviceURL) {
 			SubscriptionRequest(xmlns: namespace) {
@@ -73,7 +84,7 @@ class PersonnelEndpointFunctionalTests extends EndpointFunctionalTestCase {
 	}
 	
 	//code erreur 100 : Adresse email d�j� utilis�e
-	void testSubscriptionError100() {
+	void subscriptionError100() {
 		// my instance
 		def response = withEndpointRequest(serviceURL) {
 			SubscriptionRequest(xmlns: namespace) {
@@ -89,6 +100,39 @@ class PersonnelEndpointFunctionalTests extends EndpointFunctionalTestCase {
 		def status = response.status
 		assert result == "KO"
 		assert status == "100"
+		
+//		response = withEndpointRequest(serviceURL) {
+//			SubscriptionRequest(xmlns: namespace) {
+//				Subscription{
+//					Prenom("Franck")
+//					Nom("Arrecot")
+//					Mail("franck@univ-tlse3.fr")
+//					Adresse("place du capitole toulouse") // working adress
+//				}
+//			}
+//		}
+//		
+//		response = withEndpointRequest(serviceURL) {
+//			SubscriptionRequest(xmlns: namespace) {
+//				Subscription{
+//					Prenom("Remi")
+//					Nom("Benoit")
+//					Mail("remi@univ-tlse3.fr")
+//					Adresse("Rue bernard mule Toulouse") // working adress
+//				}
+//			}
+//		}
+//		
+//		response = withEndpointRequest(serviceURL) {
+//			SubscriptionRequest(xmlns: namespace) {
+//				Subscription{
+//					Prenom("Paolo")
+//					Nom("Devathaire")
+//					Mail("paolo@univ-tlse3.fr")
+//					Adresse("rue de la victoire tarbes") // working adress
+//				}
+//			}
+//		}
 	}
 
 }
