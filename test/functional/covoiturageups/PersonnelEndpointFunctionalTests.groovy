@@ -47,7 +47,6 @@ class PersonnelEndpointFunctionalTests extends EndpointFunctionalTestCase {
 		def status = response.status
 		assert result == "KO"
 		assert status == "100"
-	
 	}
 	
 	// code erreur 110 : Adresse email invalide 
@@ -58,7 +57,7 @@ class PersonnelEndpointFunctionalTests extends EndpointFunctionalTestCase {
 					Prenom("TotoPasBien")
 					Nom("Auzoo2")
 					Mail("failarobauniv-tlse3.fr")
-					Adresse("rue du paradis Toulouse") // unworking : error 200
+					Adresse("Rue Bayard Toulouse")
 				}
 			}
 		}

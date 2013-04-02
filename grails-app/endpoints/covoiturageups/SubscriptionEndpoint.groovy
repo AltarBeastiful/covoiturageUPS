@@ -25,31 +25,49 @@ class SubscriptionEndpoint {
 				status('200')
 				message('Adresse postale non connue de Open Street Map')
 			}
+			return ;
 		}
-		else { 
-			def controller = new PersonnelController()
 
-			controller.params.putAll([nom: request.Subscription.Nom[0].text(), prenom: request.Subscription.Prenom[0].text(),
-				adresse: request.Subscription.Adresse[0].text(), email: request.Subscription.Mail[0].text(),
-				latitude: gps[0], longitude: gps[1]] )
-			println "Trying to save"
-			try{
-				if(!controller.save()){
-					//TODO erreur params non valide
-					println "Parameters not valid"
+		def controller = new PersonnelController()
+
+		controller.params.putAll([nom: request.Subscription.Nom[0].text(),
+			prenom: request.Subscription.Prenom[0].text(),
+			adresse: request.Subscription.Adresse[0].text(),
+			email: request.Subscription.Mail[0].text(),
+			latitude: gps[0], longitude: gps[1]]
+		)
+
+		println "Trying to save"
+
+		try{
+			if(!controller.save()){
+				//TODO Unvalid Parameter
+				println "Parameters not valid"
+				response.SubscriptionResponse(xmlns: namespace) {
+					result('KO')
+					status('100')
+					message('Email unvalid')
 				}
-			}catch(UpdateConflictException e){
-				//TODO erreur email deja utilise
-				println "Email already in use"
+				return ;
 			}
-
-			// Preparing the response document
-			//TODO inscription réussi
+		}catch(UpdateConflictException e){
+			//TODO Mail Already used
+			println "Email already in use"
 			response.SubscriptionResponse(xmlns: namespace) {
-				result('OK')
-				message('Subscription done')
+				result('KO')
+				status('110')
+				message('Mail already in use')
 			}
-			println "Insertion into database done"
+			return ;
 		}
+
+		// Preparing the response document
+		//TODO inscription réussi
+		response.SubscriptionResponse(xmlns: namespace) {
+			result('OK')
+			message('Subscription done')
+		}
+		println "Insertion into database done"
 	}
+
 }

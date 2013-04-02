@@ -5,7 +5,7 @@ import covoiturageups.PersonnelService
 import org.springframework.dao.DataIntegrityViolationException
 
 class PersonnelController {
-	def service = PersonnelService.getInstance()
+	//def service = PersonnelService.getInstance()
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -17,7 +17,7 @@ class PersonnelController {
 //        params.max = Math.min(max ?: 10, 100)
 //        [personnelInstanceList: Personnel.list(params), personnelInstanceTotal: Personnel.count()]
 		return service.getAllPersonnel()
-        //[personnelInstanceList: service.getAllPersonnel(), personnelInstanceTotal: perosnnelInstaceList.size()]
+//        [personnelInstanceList: service.getAllPersonnel(), personnelInstanceTotal: perosnnelInstaceList.size()]
     }
 
     def create() {
@@ -32,8 +32,9 @@ class PersonnelController {
 	            return false
 	        }
         }
-		
+	
 		return service.savePersonnel(personnelInstance)
+
     }
 
 //    def show(Long id) {

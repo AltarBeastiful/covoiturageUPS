@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Transactional
 class PersonnelService {
+
 	//static transactional = true
 	def Database db
 
