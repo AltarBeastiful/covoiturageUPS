@@ -10,6 +10,48 @@ class PersonnelEndpointFunctionalTests extends EndpointFunctionalTestCase {
 	void setUp(){
 		super.setUp()
 		webServiceTemplate.setDefaultUri(serviceURL)
+		
+	}
+	
+	void testSetup() {
+		PersonnelService.getInstance().setDatabaseName("covoiturageupstest")
+		PersonnelService.getInstance().flushDatabase()
+	}
+	
+	// code erreur 200 : Adresse postale non connue de Open Street Map
+	void testSubscriptionError200() {
+		def response = withEndpointRequest(serviceURL) {
+			SubscriptionRequest(xmlns: namespace) {
+				Subscription{
+					Prenom("TotoPasBien")
+					Nom("Auzoo2")
+					Mail("totoauzoo@univ-tlse3.fr")
+					Adresse("rue du paradis Toulouse") // unworking : error 200
+				}
+			}
+		}
+		def result = response.result
+		def status = response.status
+		assert result == "KO"
+		assert status == "200"
+	}
+	
+	// code erreur 110 : Adresse email invalide
+	void testSubscriptionError110() {
+		def response = withEndpointRequest(serviceURL) {
+			SubscriptionRequest(xmlns: namespace) {
+				Subscription{
+					Prenom("TotoPasBien")
+					Nom("Auzoo2")
+					Mail("failarobauniv-tlse3.fr")
+					Adresse("Rue Bayard Toulouse")
+				}
+			}
+		}
+		def result = response.result
+		def status = response.status
+		assert result == "KO"
+		assert status == "110"
 	}
 
 	void testSubscriptionOK() {
@@ -30,7 +72,7 @@ class PersonnelEndpointFunctionalTests extends EndpointFunctionalTestCase {
 		assert result == "OK"
 	}
 	
-	//code erreur 100 : Adresse email déjà utilisée 
+	//code erreur 100 : Adresse email dï¿½jï¿½ utilisï¿½e
 	void testSubscriptionError100() {
 		// my instance
 		def response = withEndpointRequest(serviceURL) {
@@ -48,40 +90,5 @@ class PersonnelEndpointFunctionalTests extends EndpointFunctionalTestCase {
 		assert result == "KO"
 		assert status == "100"
 	}
-	
-	// code erreur 110 : Adresse email invalide 
-	void testSubscriptionError110() {
-		def response = withEndpointRequest(serviceURL) {
-			SubscriptionRequest(xmlns: namespace) {
-				Subscription{
-					Prenom("TotoPasBien")
-					Nom("Auzoo2")
-					Mail("failarobauniv-tlse3.fr")
-					Adresse("Rue Bayard Toulouse")
-				}
-			}
-		}
-		def result = response.result
-		def status = response.status
-		assert result == "KO"
-		assert status == "110"
-	}
-	
-	// code erreur 200 : Adresse postale non connue de Open Street Map
-	void testSubscriptionError200() {
-		def response = withEndpointRequest(serviceURL) {
-			SubscriptionRequest(xmlns: namespace) {
-				Subscription{
-					Prenom("TotoPasBien")
-					Nom("Auzoo2")
-					Mail("totoauzoo@univ-tlse3.fr")
-					Adresse("rue du paradis Toulouse") // unworking : error 200
-				}
-			}
-		}
-		def result = response.result
-		def status = response.status
-		assert result == "KO"
-		assert status == "200"
-	}			
+
 }

@@ -45,7 +45,7 @@ class SubscriptionEndpoint {
 				println "Parameters not valid"
 				response.SubscriptionResponse(xmlns: namespace) {
 					result('KO')
-					status('100')
+					status('110')
 					message('Email unvalid')
 				}
 				return ;
@@ -55,7 +55,7 @@ class SubscriptionEndpoint {
 			println "Email already in use"
 			response.SubscriptionResponse(xmlns: namespace) {
 				result('KO')
-				status('110')
+				status('100')
 				message('Mail already in use')
 			}
 			return ;

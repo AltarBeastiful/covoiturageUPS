@@ -56,7 +56,7 @@ class PersonnelService {
 	List<Personnel> getAllPersonnel(){
 		List<Personnel> result = new ArrayList<Personnel>()
 
-		for (ValueRow<Object> row : db.listDocuments(null, null).getRows()) {
+		for (ValueRow<Object> row : db.listDocuments(null, null).getRows()) {			
 			result.add(this.getPersonnel(row.getId()))
 		}
 

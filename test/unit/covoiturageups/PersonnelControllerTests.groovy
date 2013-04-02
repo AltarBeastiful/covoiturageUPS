@@ -18,23 +18,19 @@ class PersonnelControllerTests {
 		params["email"] = 'remi@univ-tlse3.fr'
 		params["adresse"] = '3 rue des trucs'
 		params["latitude"] = 1.42
-		params["longitude"] = 1.43
-		
+		params["longitude"] = 1.43	
+    }
+	
+	void testSetup(){
 		PersonnelService.getInstance().setDatabaseName("covoiturageupstest")
 		PersonnelService.getInstance().flushDatabase()
-		
-    }
-
-    void testIndex() {
-        controller.index()
-        assert "/personnel/list" == response.redirectedUrl
-    }
+	}
 
     void testList() {
 
         def model = controller.list()
 
-        assert model.size() == 1 //doesn't make sense
+        assert model.size() == 0
     }
 
     void testCreate() {
@@ -44,120 +40,16 @@ class PersonnelControllerTests {
     }
 
     void testSave() {
-        controller.save()
+        def result = controller.save()
 
-        assert model.personnelInstance != null
-        assert view == '/personnel/create'
+		assertFalse result
 
         response.reset()
 
         populateValidParams(params)
-        controller.save()
+        result =  controller.save()
 		
+		assertTrue result
         assert Personnel.count() == 1
     }
-
-//    void testShow() {
-//        controller.show()
-//
-//        assert flash.message != null
-//        assert response.redirectedUrl == '/personnel/list'
-//
-//        populateValidParams(params)
-//        def personnel = new Personnel(params)
-//
-//        assert personnel.save() != null
-//
-//        params.id = personnel.id
-//
-//        def model = controller.show()
-//
-//        assert model.personnelInstance == personnel
-//    }
-//
-//    void testEdit() {
-//        controller.edit()
-//
-//        assert flash.message != null
-//        assert response.redirectedUrl == '/personnel/list'
-//
-//        populateValidParams(params)
-//        def personnel = new Personnel(params)
-//
-//        assert personnel.save() != null
-//
-//        params.id = personnel.id
-//
-//        def model = controller.edit()
-//
-//        assert model.personnelInstance == personnel
-//    }
-//
-//    void testUpdate() {
-//        controller.update()
-//
-//        assert flash.message != null
-//        assert response.redirectedUrl == '/personnel/list'
-//
-//        response.reset()
-//
-//        populateValidParams(params)
-//        def personnel = new Personnel(params)
-//
-//        assert personnel.save() != null
-//
-//        // test invalid parameters in update
-//        params.id = personnel.id
-//		params.email = "gfdsf"
-//        //TODO: add invalid values to params object
-//		
-//        controller.update()
-//
-//        //assert view == "/personnel/edit"
-//        assert model.personnelInstance != null
-//
-//        personnel.clearErrors()
-//
-//        populateValidParams(params)
-//        controller.update()
-//
-//        assert response.redirectedUrl == "/personnel/show/$personnel.id"
-//        assert flash.message != null
-//
-//        //test outdated version number
-//        response.reset()
-//        personnel.clearErrors()
-//
-//        populateValidParams(params)
-//        params.id = personnel.id
-//        params.version = -1
-//        controller.update()
-//
-//        assert view == "/personnel/edit"
-//        assert model.personnelInstance != null
-//        assert model.personnelInstance.errors.getFieldError('version')
-//        assert flash.message != null
-//    }
-//
-//    void testDelete() {
-//        controller.delete()
-//        assert flash.message != null
-//        assert response.redirectedUrl == '/personnel/list'
-//
-//        response.reset()
-//
-//        populateValidParams(params)
-//        def personnel = new Personnel(params)
-//
-//        assert personnel.save() != null
-//        assert Personnel.count() == 1
-//
-//        params.id = personnel.id
-//
-//        controller.delete()
-//
-//        assert Personnel.count() == 0
-//        assert Personnel.get(personnel.id) == null
-//        assert response.redirectedUrl == '/personnel/list'
-//    }
 }
