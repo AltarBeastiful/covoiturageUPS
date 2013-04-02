@@ -6,6 +6,7 @@ import org.jcouchdb.exception.UpdateConflictException
 @Grab(group='com.google.code.jcouchdb', module='jcouchdb', version='1.0.1-1')
 class SubscriptionEndpoint {
 	def static namespace = "http://www.covoiturageups.com/v1/definitions"
+	def static requestElement = "SubscriptionRequest"
 
 	def invoke = { request, response ->
 
